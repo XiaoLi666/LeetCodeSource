@@ -1,3 +1,8 @@
+/*
+ Author: ZILI WANG
+ Date: 10th Dec 2015
+ */
+
 class Solution {
 public:
     vector<int> twoSum(vector<int>& nums, int target) {
