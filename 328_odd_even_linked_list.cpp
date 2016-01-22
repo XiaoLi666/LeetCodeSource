@@ -1,7 +1,6 @@
 /*
- Author: ZILI WANG
- Date: 20th Jan 2016
- Remarks: have not finished yet
+ * Author: Zili Wang
+ * Date: 22nd Jan 2016
  */
 
 /**
@@ -16,17 +15,24 @@ class Solution {
 public:
     ListNode* oddEvenList(ListNode* head) {
         ListNode * current_node = head;
-        ListNode * last_odd_node = current_node; // pointing to the last node with odd index number
-        unsigned int current_index = 1;
-        unsigned int last_odd_index = current_index;
+        ListNode * last_odd_index_node = current_node;
+        ListNode * last_even_index_node = nullptr;
+        unsigned int current_index = 1; // this is necessary to indicate the odd/even index
 
         while (current_node) {
-            if (index % 2 == 1) { // odd index
-                last_odd_node = current_node;
-                last_odd_index = current_index;
+            if (current_index % 2 == 1 && last_even_index_node) { // odd index, need to move forward
+                last_even_index_node->next = current_node->next;
+                current_node->next = last_odd_index_node->next;
+                last_odd_index_node->next = current_node;
+                last_odd_index_node = current_node;
+                current_node = last_even_index_node;
             }
-            current_node = head->next;
-            ++ index;
+            else { // even index, keep still
+                last_even_index_node = current_node;
+            }
+            current_node = current_node->next;
+            ++current_index;
         }
+        return head;
     }
 };
